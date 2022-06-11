@@ -13,13 +13,6 @@ class CodeValue:
 
 codes = ["CODE_ANALOG","CODE_DIGITAL","CODE_CUSTOM","CODE_LIMITSET","CODE_SINGLENOE","CODE_MULTIPLENODE","CODE_CONSUMER","CODE_SOURCE"]
 
-
-
-
-
-
-
-
 HEADERSIZE = 10
 
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)

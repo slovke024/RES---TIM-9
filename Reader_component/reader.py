@@ -7,7 +7,7 @@ import sqlite3
 HEADERSIZE = 10                                             # Velicina headera u primljenoj poruci
 
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)       # TCP Konekcija
-s.connect((socket.gethostname(),1235))
+s.connect((socket.gethostname(),1237))
 
 conn = sqlite3.connect('test_database.db')                     # Pravljenje sqlite3 test baze
 c = conn.cursor()
