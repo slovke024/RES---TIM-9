@@ -41,6 +41,11 @@ clientsocket, adress = s1.accept()
 print(f"Connection from {adress} has been established")
 
 def pakovanje(p1):
+    global bool1
+    global bool2
+    global bool3
+    global bool4
+    
     if p1[0]=="CODE_ANALOG" or p1[0]=="CODE_DIGITAL":
                 rc=RecieverProperty(p1[0],p1[1])
                 hl1.append(rc)
@@ -48,9 +53,11 @@ def pakovanje(p1):
                 if bool1:
                     listaAdd.append(cd1)
                     deltacd.add=listaAdd
+                    bool1=not(bool1)
                 else:
                     listaUpdate.append(cd1)
                     deltacd.update=listaUpdate
+                
     if p1[0]=="CODE_CUSTOM" or p1[0]=="CODE_LIMITSET":
                 rc=RecieverProperty(p1[0],p1[1])
                 hl2.append(rc)
@@ -58,9 +65,11 @@ def pakovanje(p1):
                 if bool2:
                     listaAdd.append(cd2)
                     deltacd.add=listaAdd
+                    bool2=not(bool2)
                 else:
                     listaUpdate.append(cd2)
-                    deltacd.update=listaUpdate              
+                    deltacd.update=listaUpdate   
+                           
     if p1[0]=="CODE_SINGLENOE" or p1[0]=="CODE_MULTIPLENODE":
                 rc=RecieverProperty(p1[0],p1[1])
                 hl3.append(rc)
@@ -68,9 +77,11 @@ def pakovanje(p1):
                 if bool3:
                     listaAdd.append(cd3)
                     deltacd.add=listaAdd
+                    bool3=not(bool3)
                 else:
                     listaUpdate.append(cd3)
-                    deltacd.update=listaUpdate                
+                    deltacd.update=listaUpdate         
+                      
     if p1[0]=="CODE_CONSUMER" or p1[0]=="CODE_SOURCE":
                 rc=RecieverProperty(p1[0],p1[1])
                 hl4.append(rc)
@@ -78,9 +89,11 @@ def pakovanje(p1):
                 if bool4:
                     listaAdd.append(cd4)
                     deltacd.add=listaAdd
+                    bool4=not(bool4)
                 else:
                     listaUpdate.append(cd4)
-                    deltacd.update=listaUpdate                
+                    deltacd.update=listaUpdate    
+                           
 
 while True:
         msg = s.recv(16)
@@ -100,6 +113,10 @@ while True:
                 msg = pickle.dumps(deltacd)
                 msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                 clientsocket.send(msg)
+                hl1.clear()
+                hl2.clear()
+                hl3.clear()
+                hl4.clear()
                 listaAdd.clear()
                 listaUpdate.clear()
 
