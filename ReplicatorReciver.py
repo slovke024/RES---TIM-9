@@ -100,6 +100,8 @@ while True:
                 msg = pickle.dumps(deltacd)
                 msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                 clientsocket.send(msg)
+                listaAdd.clear()
+                listaUpdate.clear()
 
             new_msg = True
             full_msg = b''    
