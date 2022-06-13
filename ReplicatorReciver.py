@@ -2,24 +2,14 @@ import socket
 import pickle
 from klase import DeltaCD, RecieverProperty,CollectionDescription
 
-     
 
-cd1=CollectionDescription(1,0)
-cd2=CollectionDescription(2,1)
-cd3=CollectionDescription(3,2)
-cd4=CollectionDescription(4,3)
-hl1=list()
-hl2=list()
-hl3=list()
-hl4=list()
+historicalCollection=[]
+listAdd=[]
+listUpdate=[]
 bool1=True
 bool2=True
 bool3=True
 bool4=True
-listaAdd=list()
-listaUpdate=list()
-listaPomocna=list()
-deltacd=DeltaCD
 
 
 HEADERSIZE = 10
@@ -45,54 +35,48 @@ def pakovanje(p1):
     global bool2
     global bool3
     global bool4
-    
+
     if p1[0]=="CODE_ANALOG" or p1[0]=="CODE_DIGITAL":
                 rc=RecieverProperty(p1[0],p1[1])
-                hl1.append(rc)
-                cd1.HistoricalCollection=hl1
+                historicalCollection.append(rc)
+                cd=CollectionDescription(1,0,historicalCollection)
                 if bool1:
-                    listaAdd.append(cd1)
-                    deltacd.add=listaAdd
+                    listAdd.append(cd)
                     bool1=not(bool1)
                 else:
-                    listaUpdate.append(cd1)
-                    deltacd.update=listaUpdate
-                
+                    listUpdate.append(cd)
+           
     if p1[0]=="CODE_CUSTOM" or p1[0]=="CODE_LIMITSET":
                 rc=RecieverProperty(p1[0],p1[1])
-                hl2.append(rc)
-                cd2.HistoricalCollection=hl2
+                historicalCollection.append(rc)
+                cd=CollectionDescription(2,1,historicalCollection)
                 if bool2:
-                    listaAdd.append(cd2)
-                    deltacd.add=listaAdd
+                    listAdd.append(cd)
                     bool2=not(bool2)
                 else:
-                    listaUpdate.append(cd2)
-                    deltacd.update=listaUpdate   
-                           
+                    listUpdate.append(cd)
+                                            
     if p1[0]=="CODE_SINGLENOE" or p1[0]=="CODE_MULTIPLENODE":
                 rc=RecieverProperty(p1[0],p1[1])
-                hl3.append(rc)
-                cd3.HistoricalCollection=hl3
+                historicalCollection.append(rc)
+                cd=CollectionDescription(3,2,historicalCollection)
                 if bool3:
-                    listaAdd.append(cd3)
-                    deltacd.add=listaAdd
+                    listAdd.append(cd)
                     bool3=not(bool3)
                 else:
-                    listaUpdate.append(cd3)
-                    deltacd.update=listaUpdate         
-                      
+                    listUpdate.append(cd)
+              
     if p1[0]=="CODE_CONSUMER" or p1[0]=="CODE_SOURCE":
                 rc=RecieverProperty(p1[0],p1[1])
-                hl4.append(rc)
-                cd4.HistoricalCollection=hl4
+                historicalCollection.append(rc)
+                cd=CollectionDescription(4,3,historicalCollection)
                 if bool4:
-                    listaAdd.append(cd4)
-                    deltacd.add=listaAdd
+                    listAdd.append(cd)
                     bool4=not(bool4)
                 else:
-                    listaUpdate.append(cd4)
-                    deltacd.update=listaUpdate    
+                    listUpdate.append(cd)
+                
+                       
                            
 
 while True:
@@ -109,16 +93,18 @@ while True:
             p1 = pickle.loads(full_msg[HEADERSIZE:])
             print(p1)
             pakovanje(p1)
-            if len(listaAdd)+len(listaUpdate)==10:
-                msg = pickle.dumps(deltacd)
+            
+            if len(listAdd)+len(listUpdate)==10:
+                deltacd=DeltaCD()
+                deltacd.add=listAdd
+                deltacd.update=listUpdate
+                lista=deltacd.update+deltacd.add
+                
+                msg = pickle.dumps(lista)
                 msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                 clientsocket.send(msg)
-                hl1.clear()
-                hl2.clear()
-                hl3.clear()
-                hl4.clear()
-                listaAdd.clear()
-                listaUpdate.clear()
+                listAdd.clear()
+                listUpdate.clear()
 
             new_msg = True
             full_msg = b''    

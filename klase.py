@@ -13,12 +13,14 @@ class RecieverProperty:
 class CollectionDescription:
     
     id:int
-    DataSet:list()
+    DataSet:int
     HistoricalCollection:list()
-    def __init__(self,id,dataset):
+    def __init__(self,id,dataset,historical):
         self.id=id
-        self.DataSet=list(codes[dataset])
+        self.DataSet=dataset
+        self.HistoricalCollection=historical
 
 class DeltaCD:
     add:list()
     update:list()
+    
