@@ -38,7 +38,7 @@ c.execute('''
                     
 conn.commit()
 
-
+listaKodova=list()
 def deadband(code,value):
     
     conn = sqlite3.connect('test_database.db')
@@ -59,21 +59,20 @@ def deadband(code,value):
         dataset="DataSet4" 
     
     
-    try:
-        c.execute(F"SELECT vrednost FROM {dataset} WHERE kod={code} AND dateTime=(SELECT MAX(dateTime) FROM {dataset} WHERE kod={code})")
-        c.commit()
-    except:
-        print("##############################################################")
-        return db_prosao
+    if code in listaKodova:
+        c.execute(F"SELECT vrednost FROM {dataset} WHERE kod='{code}' AND dateTime=(SELECT MAX(dateTime) FROM {dataset} WHERE kod='{code}')")
     else:
-        latestValue=c.fetchall()
-        limit = float(latestValue)*0.9
+        return True
+    
+    latestValue=c.fetchall()
+    broj=latestValue[0]
+    limit = float(broj[0])*0.02
 
-        if code !="CODE_DIGITAL":
-            if value>=latestValue-limit or value<= latestValue+limit:
-                db_prosao=False
+    if code !="CODE_DIGITAL":
+        if value>=broj[0]-limit and value<= broj[0]+limit:
+            db_prosao=False
 
-        return db_prosao
+    return db_prosao
 
 #value = 100
 #latest value = 100
@@ -111,34 +110,43 @@ while True:
             print(F"{x.HistoricalCollection[-counter].code} {x.HistoricalCollection[-counter].value}")
 
             if x.HistoricalCollection[-counter].code=="CODE_ANALOG" or x.HistoricalCollection[-counter].code=="CODE_DIGITAL":
+                    
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet1 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        c.execute("INSERT INTO DataSet1 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                         conn.commit()
+                        if x.HistoricalCollection[-counter].code not in listaKodova:
+                            listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
                     else:
                         print("Kod ne ispunjava deadband uslov.")
             if x.HistoricalCollection[-counter].code=="CODE_CUSTOM" or x.HistoricalCollection[-counter].code=="CODE_LIMITSET":
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet2 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        c.execute("INSERT INTO DataSet2 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                         conn.commit()
+                        if x.HistoricalCollection[-counter].code not in listaKodova:
+                            listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
                     else:
                         print("Kod ne ispunjava deadband uslov.")
             if x.HistoricalCollection[-counter].code=="CODE_SINGLENOE" or x.HistoricalCollection[-counter].code=="CODE_MULTIPLENODE":
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet3 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        c.execute("INSERT INTO DataSet3 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                         conn.commit()
+                        if x.HistoricalCollection[-counter].code not in listaKodova:
+                            listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
                     else:
                         print("Kod ne ispunjava deadband uslov.")
             if x.HistoricalCollection[-counter].code=="CODE_CONSUMER" or x.HistoricalCollection[-counter].code=="CODE_SOURCE":
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet4 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        c.execute("INSERT INTO DataSet4 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                         conn.commit()
+                        if x.HistoricalCollection[-counter].code not in listaKodova:
+                            listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
                     else:
                         print("Kod ne ispunjava deadband uslov.")
