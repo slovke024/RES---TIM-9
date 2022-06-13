@@ -39,6 +39,50 @@ c.execute('''
 conn.commit()
 
 
+def deadband(code,value):
+    
+    conn = sqlite3.connect('test_database.db')
+    c = conn.cursor()
+    dataset = "DataSet1"
+    db_prosao = True
+
+    if(code=="CODE_ANALOG"):
+        dataset="DataSet1"
+
+    if(code=="CODE_CUSTOM" or code=="CODE_LIMITSET"):
+        dataset="DataSet2"
+
+    if(code=="CODE_SINGLENOE" or code=="CODE_MULTIPLENODE"):
+        dataset="DataSet3"
+
+    if(code=="CODE_CONSUMER" or code=="CODE_SOURCE"):
+        dataset="DataSet4" 
+    
+    
+    try:
+        c.execute(F"SELECT vrednost FROM {dataset} WHERE kod={code} AND dateTime=(SELECT MAX(dateTime) FROM {dataset} WHERE kod={code})")
+        c.commit()
+    except:
+        print("##############################################################")
+        return db_prosao
+    else:
+        latestValue=c.fetchall()
+        limit = float(latestValue)*0.9
+
+        if code !="CODE_DIGITAL":
+            if value>=latestValue-limit or value<= latestValue+limit:
+                db_prosao=False
+
+        return db_prosao
+
+#value = 100
+#latest value = 100
+#limit = 90
+#100 >= 10  or   100 <= 190
+
+
+
+
 listAdd=list()
 listUpdate=list()
 delta=DeltaCD()
@@ -67,45 +111,43 @@ while True:
             print(F"{x.HistoricalCollection[-counter].code} {x.HistoricalCollection[-counter].value}")
 
             if x.HistoricalCollection[-counter].code=="CODE_ANALOG" or x.HistoricalCollection[-counter].code=="CODE_DIGITAL":
-                    c.execute("INSERT INTO DataSet1 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                    conn.commit()
-                    print("Kod uspesno upisan u bazu.")
+                    prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
+                    if prosao:
+                        c.execute("INSERT INTO DataSet1 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        conn.commit()
+                        print("Kod uspesno upisan u bazu.")
+                    else:
+                        print("Kod ne ispunjava deadband uslov.")
             if x.HistoricalCollection[-counter].code=="CODE_CUSTOM" or x.HistoricalCollection[-counter].code=="CODE_LIMITSET":
-                    c.execute("INSERT INTO DataSet2 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                    conn.commit()
-                    print("Kod uspesno upisan u bazu.")
+                    prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
+                    if prosao:
+                        c.execute("INSERT INTO DataSet2 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        conn.commit()
+                        print("Kod uspesno upisan u bazu.")
+                    else:
+                        print("Kod ne ispunjava deadband uslov.")
             if x.HistoricalCollection[-counter].code=="CODE_SINGLENOE" or x.HistoricalCollection[-counter].code=="CODE_MULTIPLENODE":
-                    c.execute("INSERT INTO DataSet3 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                    conn.commit()
-                    print("Kod uspesno upisan u bazu.")
+                    prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
+                    if prosao:
+                        c.execute("INSERT INTO DataSet3 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        conn.commit()
+                        print("Kod uspesno upisan u bazu.")
+                    else:
+                        print("Kod ne ispunjava deadband uslov.")
             if x.HistoricalCollection[-counter].code=="CODE_CONSUMER" or x.HistoricalCollection[-counter].code=="CODE_SOURCE":
-                    c.execute("INSERT INTO DataSet4 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                    conn.commit()
-                    print("Kod uspesno upisan u bazu.")
+                    prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
+                    if prosao:
+                        c.execute("INSERT INTO DataSet4 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
+                        conn.commit()
+                        print("Kod uspesno upisan u bazu.")
+                    else:
+                        print("Kod ne ispunjava deadband uslov.")
 
             
             counter-=1
         print("=======================================================")    
 
-        
-        
-                
-                
-
-      #  if p1[0]=="CODE_ANALOG" or p1[0]=="CODE_DIGITAL":
-      #              c.execute("INSERT INTO DataSet1 (kod, vrednost) VALUES(?,?)",(p1[0],p1[1]))
-      #              conn.commit()
-      #  if p1[0]=="CODE_CUSTOM" or p1[0]=="CODE_LIMITSET":
-      #              c.execute("INSERT INTO DataSet2 (kod, vrednost) VALUES(?,?)",(p1[0],p1[1]))
-      #              conn.commit()
-      #  if p1[0]=="CODE_SINGLENOE" or p1[0]=="CODE_MULTIPLENODE":
-      #              c.execute("INSERT INTO DataSet3 (kod, vrednost) VALUES(?,?)",(p1[0],p1[1]))
-      #              conn.commit()
-      #  if p1[0]=="CODE_CONSUMER" or p1[0]=="CODE_SOURCE":
-      #              c.execute("INSERT INTO DataSet4 (kod, vrednost) VALUES(?,?)",(p1[0],p1[1]))
-      #              conn.commit()
-
-       # print("Kod uspesno smesten u bazu podataka")
+       
         new_msg = True
         full_msg = b''
 

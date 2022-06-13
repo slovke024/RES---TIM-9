@@ -27,7 +27,7 @@ print(f"Connection from {adress} has been established")
 
 while True:
         time.sleep(1)
-        p1 = CodeValue(codes[random.randint(0,7)],random.randint(0,9999))
+        p1 = CodeValue(codes[random.randint(0,7)],random.randint(0,100))
         msg1 = [p1.code,p1.value]
         msg = pickle.dumps(msg1)
 
