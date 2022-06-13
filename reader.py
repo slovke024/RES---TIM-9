@@ -1,6 +1,7 @@
 import socket
 import pickle
 import sqlite3
+from datetime import datetime
 from klase import DeltaCD, RecieverProperty,CollectionDescription
 
 HEADERSIZE = 10                                             # Velicina headera u primljenoj poruci
@@ -14,25 +15,25 @@ c = conn.cursor()
 
 c.execute('''
           CREATE TABLE IF NOT EXISTS DataSet1
-          (kod TEXT, vrednost INTEGER)
+          (kod TEXT, vrednost INTEGER, dateTime DATETIME)
           ''')
                     
 conn.commit()
 c.execute('''
           CREATE TABLE IF NOT EXISTS DataSet2
-          (kod TEXT, vrednost INTEGER)
+          (kod TEXT, vrednost INTEGER, dateTime DATETIME)
           ''')
                     
 conn.commit()
 c.execute('''
           CREATE TABLE IF NOT EXISTS DataSet3
-          (kod TEXT, vrednost INTEGER)
+          (kod TEXT, vrednost INTEGER, dateTime DATETIME)
           ''')
                     
 conn.commit()
 c.execute('''
           CREATE TABLE IF NOT EXISTS DataSet4
-          (kod TEXT, vrednost INTEGER)
+          (kod TEXT, vrednost INTEGER, dateTime DATETIME)
           ''')
                     
 conn.commit()
@@ -66,19 +67,19 @@ while True:
             print(F"{x.HistoricalCollection[-counter].code} {x.HistoricalCollection[-counter].value}")
 
             if x.HistoricalCollection[-counter].code=="CODE_ANALOG" or x.HistoricalCollection[-counter].code=="CODE_DIGITAL":
-                    c.execute("INSERT INTO DataSet1 (kod, vrednost) VALUES(?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value))
+                    c.execute("INSERT INTO DataSet1 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                     conn.commit()
                     print("Kod uspesno upisan u bazu.")
             if x.HistoricalCollection[-counter].code=="CODE_CUSTOM" or x.HistoricalCollection[-counter].code=="CODE_LIMITSET":
-                    c.execute("INSERT INTO DataSet2 (kod, vrednost) VALUES(?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value))
+                    c.execute("INSERT INTO DataSet2 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                     conn.commit()
                     print("Kod uspesno upisan u bazu.")
             if x.HistoricalCollection[-counter].code=="CODE_SINGLENOE" or x.HistoricalCollection[-counter].code=="CODE_MULTIPLENODE":
-                    c.execute("INSERT INTO DataSet3 (kod, vrednost) VALUES(?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value))
+                    c.execute("INSERT INTO DataSet3 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                     conn.commit()
                     print("Kod uspesno upisan u bazu.")
             if x.HistoricalCollection[-counter].code=="CODE_CONSUMER" or x.HistoricalCollection[-counter].code=="CODE_SOURCE":
-                    c.execute("INSERT INTO DataSet4 (kod, vrednost) VALUES(?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value))
+                    c.execute("INSERT INTO DataSet4 (kod, vrednost, dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
                     conn.commit()
                     print("Kod uspesno upisan u bazu.")
 
