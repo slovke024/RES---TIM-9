@@ -38,6 +38,25 @@ class Reader:
         c = conn.cursor() 
         c.execute(F"INSERT INTO {self.dataSet} (kod,vrednost,dateTime) VALUES('{code}',{value},'{datetime.now()}')")
         conn.commit()   
+    def poslednjaVrednost(self,code):
+        conn = sqlite3.connect('test_database.db')
+        c = conn.cursor() 
+        c.execute(F"SELECT vrednost FROM {self.dataSet} WHERE kod='{code}' AND dateTime=(SELECT MAX(dateTime) FROM {self.dataSet} WHERE kod='{code}')")
+        conn.commit()
+        latestValue=c.fetchall()
+        broj=latestValue[0]
+        print(F"Poslednja vrednost koda {code} je {broj[0]}") 
+    def vremenskiInterval(self,code,interval1,interval2):
+        conn = sqlite3.connect('test_database.db')
+        c = conn.cursor() 
+        c.execute(F"SELECT * from {self.dataSet} WHERE kod='{code}' AND (dateTime BETWEEN '{interval1}' AND '{interval2}')")
+        conn.commit()
+        latestValue=c.fetchall()
+        for x in latestValue:
+            print(F"[{x[0]}] {x[1]} {x[2]}")
+
+        
+
 
 class Logger:
     def upisiLog(self,msg):

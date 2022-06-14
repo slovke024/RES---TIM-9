@@ -13,6 +13,10 @@ s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)       # TCP Konekcija
 s.connect((socket.gethostname(),1237))
 loger.upisiLog("Reader:Uspostavljena konekcija sa ReplicatorReciver komponentom.")
 
+#sClient = socket.socket(socket.AF_INET,socket.SOCK_STREAM)      # Konekcija sa Client
+#sClient.connect((socket.gethostname(),1239))
+
+
 
 conn = sqlite3.connect('test_database.db')                     # Pravljenje sqlite3 test baze
 c = conn.cursor()
@@ -79,11 +83,6 @@ def deadband(code,value):
 
     return db_prosao
 
-#value = 100
-#latest value = 100
-#limit = 90
-#100 >= 10  or   100 <= 190
-
 
 reader1=Reader("DataSet1")
 reader2=Reader("DataSet2")
@@ -101,6 +100,8 @@ rc=RecieverProperty
                                                # Petlja za primanje i ispis poruka
 full_msg = b''
 new_msg = True
+#new_msg1 = True
+#full_msg1 = b''
 while True:
     msg = s.recv(16)
     if new_msg:
@@ -170,5 +171,17 @@ while True:
        
         new_msg = True
         full_msg = b''
+'''  
+    msg1=sClient.recv(16) 
+       
+    if new_msg1:
+        msglen1 = int(msg1[:HEADERSIZE])
+        new_msg1 = False    
+    full_msg1 += msg1
+    if len(full_msg1) - HEADERSIZE == msglen1:
+        vrednost=pickle.loads(full_msg1[HEADERSIZE:])
 
-
+        print(vrednost)
+        new_msg1 = True
+        full_msg1 = b''
+        '''
