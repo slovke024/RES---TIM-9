@@ -2,7 +2,7 @@ import socket
 import pickle
 import sqlite3
 from datetime import datetime
-from klase import DeltaCD, RecieverProperty,CollectionDescription
+from klase import DeltaCD, RecieverProperty,CollectionDescription,Reader
 
 HEADERSIZE = 10                                             # Velicina headera u primljenoj poruci
 
@@ -80,7 +80,10 @@ def deadband(code,value):
 #100 >= 10  or   100 <= 190
 
 
-
+reader1=Reader("DataSet1")
+reader2=Reader("DataSet2")
+reader3=Reader("DataSet3")
+reader4=Reader("DataSet4")
 
 listAdd=list()
 listUpdate=list()
@@ -113,8 +116,8 @@ while True:
                     
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet1 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                        conn.commit()
+
+                        reader1.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
@@ -123,8 +126,8 @@ while True:
             if x.HistoricalCollection[-counter].code=="CODE_CUSTOM" or x.HistoricalCollection[-counter].code=="CODE_LIMITSET":
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet2 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                        conn.commit()
+
+                        reader2.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
@@ -133,8 +136,8 @@ while True:
             if x.HistoricalCollection[-counter].code=="CODE_SINGLENOE" or x.HistoricalCollection[-counter].code=="CODE_MULTIPLENODE":
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet3 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                        conn.commit()
+
+                        reader3.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
@@ -143,8 +146,8 @@ while True:
             if x.HistoricalCollection[-counter].code=="CODE_CONSUMER" or x.HistoricalCollection[-counter].code=="CODE_SOURCE":
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
-                        c.execute("INSERT INTO DataSet4 (kod,vrednost,dateTime) VALUES(?,?,?)",(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value, datetime.now()))
-                        conn.commit()
+
+                        reader4.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
                         print("Kod uspesno upisan u bazu.")
