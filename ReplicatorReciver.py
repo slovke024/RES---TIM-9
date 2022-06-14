@@ -1,6 +1,7 @@
+from asyncio.log import logger
 import socket
 import pickle
-from klase import DeltaCD, RecieverProperty,CollectionDescription
+from klase import DeltaCD, RecieverProperty,CollectionDescription,Logger
 
 
 historicalCollection=[]
@@ -10,7 +11,7 @@ bool1=True
 bool2=True
 bool3=True
 bool4=True
-
+loger=Logger()
 
 HEADERSIZE = 10
 #TCP Konekcija sa ReplicatorSenderom
@@ -29,6 +30,7 @@ new_msg = True
 
 clientsocket, adress = s1.accept()
 print(f"Connection from {adress} has been established")
+loger.upisiLog("ReplicatorReciver:Konekcija uspostavljena sa Reader komponentom.")
 
 def pakovanje(p1):
     global bool1
@@ -37,6 +39,7 @@ def pakovanje(p1):
     global bool4
 
     if p1[0]=="CODE_ANALOG" or p1[0]=="CODE_DIGITAL":
+                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(1,0,historicalCollection)
@@ -47,6 +50,7 @@ def pakovanje(p1):
                     listUpdate.append(cd)
            
     if p1[0]=="CODE_CUSTOM" or p1[0]=="CODE_LIMITSET":
+                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(2,1,historicalCollection)
@@ -57,6 +61,7 @@ def pakovanje(p1):
                     listUpdate.append(cd)
                                             
     if p1[0]=="CODE_SINGLENOE" or p1[0]=="CODE_MULTIPLENODE":
+                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(3,2,historicalCollection)
@@ -67,6 +72,7 @@ def pakovanje(p1):
                     listUpdate.append(cd)
               
     if p1[0]=="CODE_CONSUMER" or p1[0]=="CODE_SOURCE":
+                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(4,3,historicalCollection)
@@ -91,6 +97,7 @@ while True:
         if len(full_msg) - HEADERSIZE == msglen:
 
             p1 = pickle.loads(full_msg[HEADERSIZE:])
+            loger.upisiLog("ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.")
             print(p1)
             pakovanje(p1)
             
@@ -103,6 +110,7 @@ while True:
                 msg = pickle.dumps(lista)
                 msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                 clientsocket.send(msg)
+                loger.upisiLog("ReplicatorReciver:Poslat DeltaCD Reader komponenti.")
                 listAdd.clear()
                 listUpdate.clear()
 

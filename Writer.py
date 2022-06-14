@@ -2,9 +2,10 @@ import socket
 import time
 import pickle
 import random
+from klase import Logger
 
 
-
+loger=Logger()
 
 class CodeValue:
   def __init__(self, code, value):
@@ -23,6 +24,7 @@ s.listen()
 
 clientsocket, adress = s.accept()
 print(f"Connection from {adress} has been established")
+loger.upisiLog("Writer:Konekcija uspostavljena sa ReplicatorSender komponentom.")
 
 
 while True:
@@ -34,3 +36,4 @@ while True:
         msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
 
         clientsocket.send(msg)
+        loger.upisiLog("Writer:Poruka prosledjena ReplicatorSender komponenti.")

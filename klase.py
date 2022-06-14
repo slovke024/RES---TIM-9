@@ -1,6 +1,8 @@
+from email import message
 import string
 import sqlite3
 from datetime import datetime
+import logging
 
 codes = [("CODE_ANALOG","CODE_DIGITAL"),("CODE_CUSTOM","CODE_LIMITSET"),("CODE_SINGLENOE","CODE_MULTIPLENODE"),("CODE_CONSUMER","CODE_SOURCE")]
 class RecieverProperty:
@@ -37,4 +39,7 @@ class Reader:
         c.execute(F"INSERT INTO {self.dataSet} (kod,vrednost,dateTime) VALUES('{code}',{value},'{datetime.now()}')")
         conn.commit()   
 
-   
+class Logger:
+    def upisiLog(self,msg):
+        logging.basicConfig(filename='logovi.txt', encoding='utf-8', level=logging.DEBUG)
+        logging.debug(msg)

@@ -2,12 +2,16 @@ import socket
 import pickle
 import sqlite3
 from datetime import datetime
-from klase import DeltaCD, RecieverProperty,CollectionDescription,Reader
+from klase import DeltaCD, RecieverProperty,CollectionDescription,Reader,Logger
+
+
+loger=Logger()
 
 HEADERSIZE = 10                                             # Velicina headera u primljenoj poruci
 
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)       # TCP Konekcija
 s.connect((socket.gethostname(),1237))
+loger.upisiLog("Reader:Uspostavljena konekcija sa ReplicatorReciver komponentom.")
 
 
 conn = sqlite3.connect('test_database.db')                     # Pravljenje sqlite3 test baze
@@ -37,6 +41,7 @@ c.execute('''
           ''')
                     
 conn.commit()
+loger.upisiLog("Reader:Uspesno kreirane tabele baze podataka.")
 
 listaKodova=list()
 def deadband(code,value):
@@ -108,51 +113,55 @@ while True:
         c = conn.cursor()
         counter=10
         lista =pickle.loads(full_msg[HEADERSIZE:])
+        loger.upisiLog("Reader:Uspesno prihvacen DeltaCD od ReplicatorReciver komponente.")
         print("=======================================================")
         for x in lista:
             print(F"{x.HistoricalCollection[-counter].code} {x.HistoricalCollection[-counter].value}")
 
             if x.HistoricalCollection[-counter].code=="CODE_ANALOG" or x.HistoricalCollection[-counter].code=="CODE_DIGITAL":
-                    
+                    loger.upisiLog("Reader1:Provera Deadbanda.")
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
 
                         reader1.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
-                        print("Kod uspesno upisan u bazu.")
+                        loger.upisiLog("Reader1:Kod uspesno upisan u bazu.")
                     else:
-                        print("Kod ne ispunjava deadband uslov.")
+                        loger.upisiLog("Reader1:Kod nije upisan u bazu zbog Deadbanda.")
             if x.HistoricalCollection[-counter].code=="CODE_CUSTOM" or x.HistoricalCollection[-counter].code=="CODE_LIMITSET":
+                    loger.upisiLog("Reader2:Provera Deadbanda.")
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
 
                         reader2.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
-                        print("Kod uspesno upisan u bazu.")
+                        loger.upisiLog("Reader2:Kod uspesno upisan u bazu.")
                     else:
-                        print("Kod ne ispunjava deadband uslov.")
+                        loger.upisiLog("Reader2:Kod nije upisan u bazu zbog Deadbanda.")
             if x.HistoricalCollection[-counter].code=="CODE_SINGLENOE" or x.HistoricalCollection[-counter].code=="CODE_MULTIPLENODE":
+                    loger.upisiLog("Reader3:Provera Deadbanda.")
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
 
                         reader3.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
-                        print("Kod uspesno upisan u bazu.")
+                        loger.upisiLog("Reader3:Kod uspesno upisan u bazu.")
                     else:
-                        print("Kod ne ispunjava deadband uslov.")
+                        loger.upisiLog("Reader3:Kod nije upisan u bazu zbog Deadbanda.")
             if x.HistoricalCollection[-counter].code=="CODE_CONSUMER" or x.HistoricalCollection[-counter].code=="CODE_SOURCE":
+                    loger.upisiLog("Reader4:Provera Deadbanda.")
                     prosao = deadband(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                     if prosao:
 
                         reader4.upisiUBazu(x.HistoricalCollection[-counter].code,x.HistoricalCollection[-counter].value)
                         if x.HistoricalCollection[-counter].code not in listaKodova:
                             listaKodova.append(x.HistoricalCollection[-counter].code)
-                        print("Kod uspesno upisan u bazu.")
+                        loger.upisiLog("Reader4:Kod uspesno upisan u bazu.")
                     else:
-                        print("Kod ne ispunjava deadband uslov.")
+                        loger.upisiLog("Reader4:Kod nije upisan u bazu zbog Deadbanda.")
 
             
             counter-=1
