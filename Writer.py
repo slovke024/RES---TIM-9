@@ -2,15 +2,12 @@ import socket
 import time
 import pickle
 import random
-from klase import Logger
+from klase import Logger,CodeValue
 
 
 loger=Logger()
 
-class CodeValue:
-  def __init__(self, code, value):
-    self.code = code
-    self.value = value
+
 
 codes = ["CODE_ANALOG","CODE_DIGITAL","CODE_CUSTOM","CODE_LIMITSET","CODE_SINGLENOE","CODE_MULTIPLENODE","CODE_CONSUMER","CODE_SOURCE"]
 

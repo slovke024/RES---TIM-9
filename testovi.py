@@ -1,15 +1,16 @@
 import unittest
 import klase
 from unittest.mock import patch
+from ReplicatorReciver import pakovanje
+from client import vremenskiInterval,poslednjaVrednost
+
 
 class TestReader(unittest.TestCase):
 
     #@patch('klase.RecieverProperty.__init__')
     def test_recieverProperty(self):
         with patch('klase.RecieverProperty.__init__') as mock_init:
-        
-
-           #rc = klase.RecieverProperty.__init__(self,'CODE_ANALOG', 13)
+            #rc = klase.RecieverProperty.__init__(self,'CODE_ANALOG', 13)
             rc = mock_init(self,'CODE_ANALOG',13)
             self.assertEqual(mock_init.call_args[0][1], 'CODE_ANALOG')
             self.assertEqual(mock_init.call_args[0][2], 13)
@@ -46,21 +47,26 @@ class TestReader(unittest.TestCase):
     def test_reader_upisUBazu(self):
         with patch('klase.Reader.upisiUBazu') as mock_upis:
 
-            inputDB = mock_upis(self, 'CODE_SOURCE', 45)
-
+            mock_upis(self, 'CODE_SOURCE', 45)
+            mock_upis.return_value=True
+            assert mock_upis(self,'CODE_SOURCE', 45)
             self.assertEqual(mock_upis.call_args[0][1],'CODE_SOURCE')
             self.assertEqual(mock_upis.call_args[0][2],45)
 
     def test_reader_poslednjaVrednost(self):
         with patch('klase.Reader.poslednjaVrednost') as mock_poslednja:
             
-            poslednja = mock_poslednja(self, 'CODE_DIGITAL')
+            mock_poslednja(self, 'CODE_DIGITAL')
+            mock_poslednja.return_value=True
+            assert mock_poslednja(self, 'CODE_DIGITAL')
             self.assertEqual(mock_poslednja.call_args[0][1],'CODE_DIGITAL')
 
     def test_reader_vremenskiInterval(self):
         with patch('klase.Reader.vremenskiInterval') as mock_interval:
 
-            interval = mock_interval(self,'CODE_SOURCE','2022/6/19','2022/6/21')
+            mock_interval(self,'CODE_SOURCE','2022/6/19','2022/6/21')
+            mock_interval.return_value=True
+            assert mock_interval(self,'CODE_SOURCE','2022/6/19','2022/6/21')
             self.assertEqual(mock_interval.call_args[0][1],'CODE_SOURCE')
             self.assertEqual(mock_interval.call_args[0][2],'2022/6/19')
             self.assertEqual(mock_interval.call_args[0][3],'2022/6/21')
@@ -68,12 +74,39 @@ class TestReader(unittest.TestCase):
 
     def test_logger_msg(self):
         with patch('klase.Logger.upisiLog') as mock_logger:
-            logger = mock_logger(self, 'poruka')
+            mock_logger(self, 'poruka')
+            mock_logger.return_value=True
+            assert mock_logger(self, 'poruka')
+            self.assertEqual(mock_logger.call_args[0][1],'poruka')
 
-            self.assertEqual(mock_poslednja.call_args[0][1],'poruka')
+    def test_replicatorReciver_pakovanje(self):
+        with patch('ReplicatorReciver.pakovanje') as mock_pakovanje:
+            mock_pakovanje(('CODE_ANALOG',15))
+            mock_pakovanje.return_value=True
+            p=('CODE_ANALOG',15)
+            assert mock_pakovanje(('CODE_ANALOG',15))
+            self.assertEqual(mock_pakovanje.call_args[0][0][0],p[0])
+            self.assertEqual(mock_pakovanje.call_args[0][0][1],p[1])
 
+    def test_Reader_deadband(self):
+        with patch('reader.deadband') as mock_deadband:
+            mock_deadband('CODE_ANALOG',15)
+            mock_deadband.return_value=True
+            self.assertEqual(mock_deadband.call_args[0][0],'CODE_ANALOG')
+            self.assertEqual(mock_deadband.call_args[0][1],15)
+            assert mock_deadband('CODE_ANALOG',15)
 
-            
+    def test_client_vremenskiInterval(self):
+        with patch('client.vremenskiInterval') as mock_vremenskiInterval:
+            mock_vremenskiInterval()
+            mock_vremenskiInterval.return_value=True
+            assert mock_vremenskiInterval()
+
+    def test_client_poslednjaVrednost(self):
+        with patch('client.poslednjaVrednost') as mock_poslednjaVrednost:
+            mock_poslednjaVrednost()
+            mock_poslednjaVrednost.return_value=True
+            assert mock_poslednjaVrednost()
 
 
 if __name__ == '__main__':

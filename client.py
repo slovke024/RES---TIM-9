@@ -1,24 +1,22 @@
-from csv import reader
-import socket
-import time
-import pickle
 from klase import Reader
 
 
+codes = ["CODE_ANALOG","CODE_DIGITAL","CODE_CUSTOM","CODE_LIMITSET","CODE_SINGLENOE","CODE_MULTIPLENODE","CODE_CONSUMER","CODE_SOURCE"]
 
 
-print("UNESITE BROJ KOJI ZELITE DA POZOVETE")
-print("1.Unesite kod za koji zelite da iscitate poslednju vrednost iz baze podataka")
-print("2.Unesite kod i vremenski interval za koji zelite da iscitate kodove iz baze podataka")
-while True:
-    broj=input()
-    if broj=='1':
+def poslednjaVrednost():
         kod=""
         lista=list()
-        while(kod!="x"):
+        while kod!="x":
             print("Unosite kodove, unesite x za prekid unosa")
             kod=input()
-            if(kod!="x"):
+            while kod not in codes:
+                if kod=="x":
+                    break
+                print("UNESITE VALIDNU VREDNOST KODA")
+                kod=input()
+                
+            if kod!="x":
                 lista.append(kod)
             
         for x in lista:
@@ -34,10 +32,14 @@ while True:
             if (x=="CODE_CONSUMER" or x=="CODE_SOURCE"):
                 reader4=Reader("DataSet4")
                 reader4.poslednjaVrednost(x)
-    
-    if broj=="2":
+        return True
+
+def vremenskiInterval():
         print("Unesite kod")
         vrednost=input()
+        while vrednost not in codes:
+            print("UNESITE VALIDNU VREDNOST KODA")
+            vrednost=input()
         print("Unesite prvi vremenski interval u formatu YYYY-MM-DD HH:MM:SS")
         vremenskiInterval1=input()
         print("Unesite drugi vremenski interval u formatu HH:MM:SS")
@@ -54,5 +56,26 @@ while True:
         if vrednost=="CODE_CONSUMER" or vrednost=="CODE_SOURCE":
             reader4=Reader("DataSet4")
             reader4.vremenskiInterval(vrednost,vremenskiInterval1,vremenskiInterval2)
-    
-    print("Sledeci upis")
+        return True
+
+
+def Main():
+    print("UNESITE BROJ KOJI ZELITE DA POZOVETE")
+    print("1.Unesite kod za koji zelite da iscitate poslednju vrednost iz baze podataka")
+    print("2.Unesite kod i vremenski interval za koji zelite da iscitate kodove iz baze podataka")
+    while True:
+        broj=input()
+        while broj!='1' and broj!='2':
+            print("POGRESAN UNOS, POKUSAJTE PONOVO")
+            broj=input()
+
+        if broj=='1':
+            poslednjaVrednost()
+        
+        if broj=="2":
+            vremenskiInterval()
+        
+        print("Sledeci upis")
+
+if __name__ == '__main__':
+    Main()

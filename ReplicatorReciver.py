@@ -4,33 +4,15 @@ import pickle
 from klase import DeltaCD, RecieverProperty,CollectionDescription,Logger
 
 
+
 historicalCollection=[]
 listAdd=[]
 listUpdate=[]
+loger=Logger()
 bool1=True
 bool2=True
 bool3=True
 bool4=True
-loger=Logger()
-
-HEADERSIZE = 10
-#TCP Konekcija sa ReplicatorSenderom
-s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s.connect((socket.gethostname(),1236))
-
-#TCP Konekcija sa Readerom
-s1 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s1.bind((socket.gethostname(),1237))
-s1.listen()
-
-
-
-full_msg = b''
-new_msg = True
-
-clientsocket, adress = s1.accept()
-print(f"Connection from {adress} has been established")
-loger.upisiLog("ReplicatorReciver:Konekcija uspostavljena sa Reader komponentom.")
 
 def pakovanje(p1):
     global bool1
@@ -81,39 +63,66 @@ def pakovanje(p1):
                     bool4=not(bool4)
                 else:
                     listUpdate.append(cd)
-                
-                       
-                           
+    
+    return True
 
-while True:
-        msg = s.recv(16)
-        
-        if new_msg:
-            msglen = int(msg[:HEADERSIZE])
-            new_msg = False
+def Main():
+    HEADERSIZE = 10
+    #TCP Konekcija sa ReplicatorSenderom
+    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    s.connect((socket.gethostname(),1236))
 
-        full_msg += msg
+    #TCP Konekcija sa Readerom
+    s1 = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    s1.bind((socket.gethostname(),1237))
+    s1.listen()
 
-        if len(full_msg) - HEADERSIZE == msglen:
 
-            p1 = pickle.loads(full_msg[HEADERSIZE:])
-            loger.upisiLog("ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.")
-            print(p1)
-            pakovanje(p1)
+
+    full_msg = b''
+    new_msg = True
+
+    clientsocket, adress = s1.accept()
+    print(f"Connection from {adress} has been established")
+    loger.upisiLog("ReplicatorReciver:Konekcija uspostavljena sa Reader komponentom.")
+
+
+                    
+                        
+                            
+
+    while True:
+            msg = s.recv(16)
             
-            if len(listAdd)+len(listUpdate)==10:
-                deltacd=DeltaCD()
-                deltacd.add=listAdd
-                deltacd.update=listUpdate
-                lista=deltacd.update+deltacd.add
-                
-                msg = pickle.dumps(lista)
-                msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
-                clientsocket.send(msg)
-                loger.upisiLog("ReplicatorReciver:Poslat DeltaCD Reader komponenti.")
-                listAdd.clear()
-                listUpdate.clear()
+            if new_msg:
+                msglen = int(msg[:HEADERSIZE])
+                new_msg = False
 
-            new_msg = True
-            full_msg = b''    
-            
+            full_msg += msg
+
+            if len(full_msg) - HEADERSIZE == msglen:
+
+                p1 = pickle.loads(full_msg[HEADERSIZE:])
+                loger.upisiLog("ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.")
+                print(p1)
+                pakovanje(p1)
+                
+                if len(listAdd)+len(listUpdate)==10:
+                    deltacd=DeltaCD()
+                    deltacd.add=listAdd
+                    deltacd.update=listUpdate
+                    lista=deltacd.update+deltacd.add
+                    
+                    msg = pickle.dumps(lista)
+                    msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
+                    clientsocket.send(msg)
+                    loger.upisiLog("ReplicatorReciver:Poslat DeltaCD Reader komponenti.")
+                    listAdd.clear()
+                    listUpdate.clear()
+
+                new_msg = True
+                full_msg = b''    
+
+if __name__ == '__main__':
+    Main()
+                
