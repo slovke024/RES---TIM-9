@@ -1,4 +1,5 @@
 from klase import Reader
+import os
 
 
 codes = ["CODE_ANALOG","CODE_DIGITAL","CODE_CUSTOM","CODE_LIMITSET","CODE_SINGLENOE","CODE_MULTIPLENODE","CODE_CONSUMER","CODE_SOURCE"]
@@ -74,6 +75,9 @@ def Main():
         
         if broj=="2":
             vremenskiInterval()
+
+        if broj=="3":
+            os.system("start cmd /k python Writer.py")
         
         print("Sledeci upis")
 

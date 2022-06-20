@@ -3473,3 +3473,242 @@ DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
 DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
 DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
 DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Konekcija uspostavljena sa ReplicatorSender komponentom.
+DEBUG:root:ReplicatorSender:Konekcija uspostavljena sa ReplicatorReciver komponentom.
+DEBUG:root:Reader:Uspostavljena konekcija sa ReplicatorReciver komponentom.
+DEBUG:root:ReplicatorReciver:Konekcija uspostavljena sa Reader komponentom.
+DEBUG:root:Reader:Uspesno kreirane tabele baze podataka.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorReciver:Poslat DeltaCD Reader komponenti.
+DEBUG:root:Reader:Uspesno prihvacen DeltaCD od ReplicatorReciver komponente.
+DEBUG:root:Reader2:Provera Deadbanda.
+DEBUG:root:Reader2:Kod uspesno upisan u bazu.
+DEBUG:root:Reader1:Provera Deadbanda.
+DEBUG:root:Reader1:Kod uspesno upisan u bazu.
+DEBUG:root:Reader1:Provera Deadbanda.
+DEBUG:root:Reader1:Kod uspesno upisan u bazu.
+DEBUG:root:Reader1:Provera Deadbanda.
+DEBUG:root:Reader1:Kod uspesno upisan u bazu.
+DEBUG:root:Reader4:Provera Deadbanda.
+DEBUG:root:Reader4:Kod uspesno upisan u bazu.
+DEBUG:root:Reader3:Provera Deadbanda.
+DEBUG:root:Reader3:Kod uspesno upisan u bazu.
+DEBUG:root:Reader1:Provera Deadbanda.
+DEBUG:root:Reader1:Kod uspesno upisan u bazu.
+DEBUG:root:Reader3:Provera Deadbanda.
+DEBUG:root:Reader3:Kod uspesno upisan u bazu.
+DEBUG:root:Reader3:Provera Deadbanda.
+DEBUG:root:Reader3:Kod uspesno upisan u bazu.
+DEBUG:root:Reader1:Provera Deadbanda.
+DEBUG:root:Reader1:Kod uspesno upisan u bazu.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Konekcija uspostavljena sa ReplicatorSender komponentom.
+DEBUG:root:ReplicatorSender:Konekcija uspostavljena sa ReplicatorReciver komponentom.
+DEBUG:root:Reader:Uspostavljena konekcija sa ReplicatorReciver komponentom.
+DEBUG:root:ReplicatorReciver:Konekcija uspostavljena sa Reader komponentom.
+DEBUG:root:Reader:Uspesno kreirane tabele baze podataka.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorReciver:Poslat DeltaCD Reader komponenti.
+DEBUG:root:Reader:Uspesno prihvacen DeltaCD od ReplicatorReciver komponente.
+DEBUG:root:Reader4:Provera Deadbanda.
+DEBUG:root:Reader4:Kod uspesno upisan u bazu.
+DEBUG:root:Reader4:Provera Deadbanda.
+DEBUG:root:Reader4:Kod uspesno upisan u bazu.
+DEBUG:root:Reader3:Provera Deadbanda.
+DEBUG:root:Reader3:Kod uspesno upisan u bazu.
+DEBUG:root:Reader1:Provera Deadbanda.
+DEBUG:root:Reader1:Kod uspesno upisan u bazu.
+DEBUG:root:Reader2:Provera Deadbanda.
+DEBUG:root:Reader2:Kod uspesno upisan u bazu.
+DEBUG:root:Reader3:Provera Deadbanda.
+DEBUG:root:Reader3:Kod uspesno upisan u bazu.
+DEBUG:root:Reader2:Provera Deadbanda.
+DEBUG:root:Reader2:Kod uspesno upisan u bazu.
+DEBUG:root:Reader4:Provera Deadbanda.
+DEBUG:root:Reader4:Kod uspesno upisan u bazu.
+DEBUG:root:Reader4:Provera Deadbanda.
+DEBUG:root:Reader4:Kod uspesno upisan u bazu.
+DEBUG:root:Reader1:Provera Deadbanda.
+DEBUG:root:Reader1:Kod uspesno upisan u bazu.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:Writer:Konekcija uspostavljena sa ReplicatorSender komponentom.
+DEBUG:root:ReplicatorSender:Konekcija uspostavljena sa ReplicatorReciver komponentom.
+DEBUG:root:Reader:Uspostavljena konekcija sa ReplicatorReciver komponentom.
+DEBUG:root:ReplicatorReciver:Konekcija uspostavljena sa Reader komponentom.
+DEBUG:root:Reader:Uspesno kreirane tabele baze podataka.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
+DEBUG:root:Writer:Poruka prosledjena ReplicatorSender komponenti.
+DEBUG:root:ReplicatorSender:Primljena poruka od Writer komponente.
+DEBUG:root:ReplicatorSender:Ubacena poruka u buffer.
+DEBUG:root:ReplicatorSender:Poruka prosledjena ReplicatorReciver komponenti.
+DEBUG:root:ReplicatorReciver:Primljena poruka od ReplicatorSender komponente.
+DEBUG:root:ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.
