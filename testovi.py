@@ -1,126 +1,135 @@
+from csv import reader
 import unittest
-import klase
+from klase import *
 from unittest.mock import patch
 from ReplicatorReciver import pakovanje
-from client import vremenski_interval,poslednja_vrednost
+from reader import deadband
 
 
 class TestReader(unittest.TestCase):
 
     #@patch('klase.RecieverProperty.__init__')
     def test_recieverProperty(self):
-        with patch('klase.RecieverProperty.__init__') as mock_init:
+        with patch('klase.RecieverProperty') as mock_init:
             #rc = klase.RecieverProperty.__init__(self,'CODE_ANALOG', 13)
-            rc = mock_init(self,'CODE_ANALOG',13)
-            self.assertEqual(mock_init.call_args[0][1], 'CODE_ANALOG')
-            self.assertEqual(mock_init.call_args[0][2], 13)
+            mock_init(self,'CODE_ANALOG',13)
+            rc=RecieverProperty('CODE_ANALOG',13)
+            self.assertEqual(mock_init.call_args[0][1],rc.code)
+            self.assertEqual(mock_init.call_args[0][2],rc.value)
 
-
-            rc1 = mock_init(self,'CODE_SINGLENOE',46)
-            self.assertEqual(mock_init.call_args[0][1], 'CODE_SINGLENOE')
-            self.assertEqual(mock_init.call_args[0][2], 46)
-
-    
     def test_collectionDescription(self):
-        with patch('klase.CollectionDescription.__init__') as mock_init2:
-            rc1 = klase.RecieverProperty("CODE_ANALOG", 10)
-            rc2 = klase.RecieverProperty("CODE_CUSTOM", 29)
-            rc3 = klase.RecieverProperty("CODE_CONSUMER", 40)
-            historical = list()
-            historical.append(rc1)
-            historical.append(rc2)
-            historical.append(rc3)
-
-            cd = mock_init2(self, 1, 2, historical)
-
-            self.assertEqual(mock_init2.call_args[0][1],1)
-            self.assertEqual(mock_init2.call_args[0][2],2)
-            self.assertEqual(mock_init2.call_args[0][3],historical)
+        with patch('klase.CollectionDescription') as mock_cd:
+            lista=list()
+            lista.append(('CODE_DIGITAL',20))
+            lista.append(('CODE_SINGLENOE',20))
+            lista.append(('CODE_ANALOG',20))
+            mock_cd(self,1,'DataSet1',lista)
+            cd=CollectionDescription(1,'DataSet1',lista)
+            self.assertEqual(mock_cd.call_args[0][1],cd.id)
+            self.assertEqual(mock_cd.call_args[0][2],cd.data_set)
+            self.assertEqual(mock_cd.call_args[0][3],cd.historical_collection)
             
-
+       
     def test_reader_init(self):
-         with patch('klase.Reader.__init__') as mock_init:
+         with patch('klase.Reader') as mock_init:
         
-            read_init = mock_init(self, 'Dataset1')
+            mock_init(self, 'DataSet1')
+            r=Reader('DataSet1')
 
-            self.assertEqual(mock_init.call_args[0][1],'Dataset1')
+            self.assertEqual(mock_init.call_args[0][1],r.dataSet)
 
     def test_reader_upisUBazu(self):
-        with patch('klase.Reader.upisiUBazu') as mock_upis:
+        with patch('klase.Reader') as mock_upis:
 
-            mock_upis(self, 'CODE_SOURCE', 45)
-            mock_upis.return_value=True
-            assert mock_upis(self,'CODE_SOURCE', 45)
-            self.assertEqual(mock_upis.call_args[0][1],'CODE_SOURCE')
-            self.assertEqual(mock_upis.call_args[0][2],45)
+            r=Reader('DataSet4')
+            mock_upis(self,'DataSet4')
+            vrednost= r.upisiUBazu('CODE_SOURCE',45)
+            self.assertEqual(mock_upis.call_args[0][1],r.dataSet)
+            self.assertTrue(vrednost)
 
     def test_reader_poslednjaVrednost(self):
-        with patch('klase.Reader.poslednjaVrednost') as mock_poslednja:
+        with patch('klase.Reader') as mock_poslednja:
             
-            mock_poslednja(self, 'CODE_DIGITAL')
-            mock_poslednja.return_value=True
-            assert mock_poslednja(self, 'CODE_DIGITAL')
-            self.assertEqual(mock_poslednja.call_args[0][1],'CODE_DIGITAL')
+            mock_poslednja(self,'DataSet1')
+            r=Reader('DataSet1')
+            vrednost=r.poslednjaVrednost('CODE_ANALOG')
+            self.assertEqual(mock_poslednja.call_args[0][1],r.dataSet)
+            self.assertTrue(vrednost)
 
     def test_reader_vremenskiInterval(self):
-        with patch('klase.Reader.vremenskiInterval') as mock_interval:
+        with patch('klase.Reader') as mock_interval:
 
-            mock_interval(self,'CODE_SOURCE','2022/6/19','2022/6/21')
-            mock_interval.return_value=True
-            assert mock_interval(self,'CODE_SOURCE','2022/6/19','2022/6/21')
-            self.assertEqual(mock_interval.call_args[0][1],'CODE_SOURCE')
-            self.assertEqual(mock_interval.call_args[0][2],'2022/6/19')
-            self.assertEqual(mock_interval.call_args[0][3],'2022/6/21')
-
+            mock_interval(self,'DataSet1')
+            r=Reader('DataSet1')
+            
+            vrednost=r.vremenskiInterval('CODE_ANALOG','2022-06-14 20:21:00','2022-06-14 21:21:00')
+            self.assertEqual(mock_interval.call_args[0][1],r.dataSet)
+            self.assertTrue(vrednost)
 
     def test_logger_msg(self):
-        with patch('klase.Logger.upisiLog') as mock_logger:
-            mock_logger(self, 'poruka')
-            mock_logger.return_value=True
-            assert mock_logger(self, 'poruka')
-            self.assertEqual(mock_logger.call_args[0][1],'poruka')
+        with patch('klase.Logger') as mock_logger:
+            mock_logger(self)
+            loger=Logger()
+            vrednost = loger.upisiLog('poruka')
+            self.assertTrue(vrednost)
 
     def test_codeValue(self):
-        with patch('klase.CodeValue.__init__') as mock_init:
+        with patch('klase.CodeValue') as mock_init:
             #rc = klase.RecieverProperty.__init__(self,'CODE_ANALOG', 13)
-            cv = mock_init(self,'CODE_LIMITSET',99)
-            self.assertEqual(mock_init.call_args[0][1], 'CODE_LIMITSET')
-            self.assertEqual(mock_init.call_args[0][2], 99)
+            mock_init(self,'CODE_LIMITSET',99)
+            cv=CodeValue('CODE_LIMITSET',99)
+            self.assertEqual(mock_init.call_args[0][1], cv.code)
+            self.assertEqual(mock_init.call_args[0][2], cv.value)
 
 
-            cv1 = mock_init(self,'CODE_DIGITAL',6)
-            self.assertEqual(mock_init.call_args[0][1], 'CODE_DIGITAL')
-            self.assertEqual(mock_init.call_args[0][2], 6)
+            mock_init(self,'CODE_DIGITAL',6)
+            cv1 = CodeValue('CODE_DIGITAL',6)
+            self.assertEqual(mock_init.call_args[0][1],cv1.code)
+            self.assertEqual(mock_init.call_args[0][2], cv1.value)
 
     def test_replicatorReciver_pakovanje(self):
         with patch('ReplicatorReciver.pakovanje') as mock_pakovanje:
             mock_pakovanje(('CODE_ANALOG',15))
-            mock_pakovanje.return_value=True
             p=('CODE_ANALOG',15)
-            assert mock_pakovanje(('CODE_ANALOG',15))
+            vrednost=pakovanje(p)
             self.assertEqual(mock_pakovanje.call_args[0][0][0],p[0])
             self.assertEqual(mock_pakovanje.call_args[0][0][1],p[1])
+            self.assertTrue(vrednost)
+
+            mock_pakovanje(('CODE_CUSTOM',15))
+            p=('CODE_CUSTOM',15)
+            vrednost=pakovanje(p)
+            self.assertEqual(mock_pakovanje.call_args[0][0][0],p[0])
+            self.assertEqual(mock_pakovanje.call_args[0][0][1],p[1])
+            self.assertTrue(vrednost)
+
+            mock_pakovanje(('CODE_SINGLENOE',15))
+            p=('CODE_SINGLENOE',15)
+            vrednost=pakovanje(p)
+            self.assertEqual(mock_pakovanje.call_args[0][0][0],p[0])
+            self.assertEqual(mock_pakovanje.call_args[0][0][1],p[1])
+            self.assertTrue(vrednost)
+
+            mock_pakovanje(('CODE_SOURCE',15))
+            p=('CODE_SOURCE',15)
+            vrednost=pakovanje(p)
+            self.assertEqual(mock_pakovanje.call_args[0][0][0],p[0])
+            self.assertEqual(mock_pakovanje.call_args[0][0][1],p[1])
+            self.assertTrue(vrednost)
 
     def test_Reader_deadband(self):
         with patch('reader.deadband') as mock_deadband:
             mock_deadband('CODE_ANALOG',15)
-            mock_deadband.return_value=True
+            vrednost=deadband('CODE_ANALOG',15)
             self.assertEqual(mock_deadband.call_args[0][0],'CODE_ANALOG')
             self.assertEqual(mock_deadband.call_args[0][1],15)
-            assert mock_deadband('CODE_ANALOG',15)
-
-    def test_client_vremenskiInterval(self):
-        with patch('client.vremenski_interval') as mock_vremenskiInterval:
-            mock_vremenskiInterval()
-            mock_vremenskiInterval.return_value=True
-            assert mock_vremenskiInterval()
-
-    def test_client_poslednjaVrednost(self):
-        with patch('client.poslednja_vrednost') as mock_poslednjaVrednost:
-            mock_poslednjaVrednost()
-            mock_poslednjaVrednost.return_value=True
-            assert mock_poslednjaVrednost()
-
+            self.assertTrue(vrednost)
+            vrednost=deadband('CODE_CUSTOM',15)
+            self.assertTrue(vrednost)
+            vrednost=deadband('CODE_SINGLENOE',15)
+            self.assertTrue(vrednost)
+            vrednost=deadband('CODE_SOURCE',15)
+            self.assertTrue(vrednost)
 
 if __name__ == '__main__':
     unittest.main()

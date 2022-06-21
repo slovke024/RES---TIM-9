@@ -47,25 +47,25 @@ def vremenski_interval():
             print("UNESITE VALIDNU VREDNOST KODA")
             vrednost=input()
         print("Unesite prvi vremenski interval u formatu YYYY-MM-DD HH:MM:SS")
-        vremenskiInterval1=input()
+        vremenski_interval1=input()
         print("Unesite drugi vremenski interval u formatu HH:MM:SS")
-        vremenskiInterval2=input()
+        vremenski_interval2=input()
         if vrednost=="CODE_ANALOG" or vrednost=="CODE_DIGITAL":
             reader1=Reader("DataSet1")
-            reader1.vremenskiInterval(vrednost,vremenskiInterval1,vremenskiInterval2)
+            reader1.vremenskiInterval(vrednost,vremenski_interval1,vremenski_interval2)
         if vrednost=="CODE_CUSTOM" or vrednost=="CODE_LIMITSET":
             reader2=Reader("DataSet2")
-            reader2.vremenskiInterval(vrednost,vremenskiInterval1,vremenskiInterval2)
+            reader2.vremenskiInterval(vrednost,vremenski_interval1,vremenski_interval2)
         if vrednost=="CODE_SINGLENOE" or vrednost=="CODE_MULTIPLENODE":
             reader3=Reader("DataSet3")
-            reader3.vremenskiInterval(vrednost,vremenskiInterval1,vremenskiInterval2)
+            reader3.vremenskiInterval(vrednost,vremenski_interval1,vremenski_interval2)
         if vrednost=="CODE_CONSUMER" or vrednost=="CODE_SOURCE":
             reader4=Reader("DataSet4")
-            reader4.vremenskiInterval(vrednost,vremenskiInterval1,vremenskiInterval2)
+            reader4.vremenskiInterval(vrednost,vremenski_interval1,vremenski_interval2)
         return True
 
 
-def Main():
+def main():
     print("UNESITE BROJ KOJI ZELITE DA POZOVETE")
     print("1.Unesite kod za koji zelite da iscitate poslednju vrednost iz baze podataka")
     print("2.Unesite kod i vremenski interval za koji zelite da iscitate kodove iz baze podataka")
@@ -84,4 +84,4 @@ def Main():
         print("Sledeci upis")
 
 if __name__ == '__main__':
-    Main()
+    main()

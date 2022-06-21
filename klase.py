@@ -12,12 +12,12 @@ codes = [("CODE_ANALOG","CODE_DIGITAL"),("CODE_CUSTOM","CODE_LIMITSET"),("CODE_S
 class CollectionDescription:
     
     id:int
-    DataSet:int
-    HistoricalCollection:list()
+    data_set:int
+    historical_collection:list()
     def __init__(self,id,dataset,historical):
         self.id=id
-        self.DataSet=dataset
-        self.HistoricalCollection=historical
+        self.data_set=dataset
+        self.historical_collection=historical
 
 class RecieverProperty:
     code:string
