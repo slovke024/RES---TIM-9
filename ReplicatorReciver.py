@@ -4,7 +4,7 @@ import pickle
 from klase import DeltaCD, RecieverProperty,CollectionDescription,Logger
 
 
-
+LoggerPoruka="ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti."
 historicalCollection=[]
 listAdd=[]
 listUpdate=[]
@@ -21,7 +21,7 @@ def pakovanje(p1):
     global bool4
 
     if p1[0]=="CODE_ANALOG" or p1[0]=="CODE_DIGITAL":
-                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
+                loger.upisiLog(LoggerPoruka)
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(1,0,historicalCollection)
@@ -32,7 +32,7 @@ def pakovanje(p1):
                     listUpdate.append(cd)
            
     if p1[0]=="CODE_CUSTOM" or p1[0]=="CODE_LIMITSET":
-                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
+                loger.upisiLog(LoggerPoruka)
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(2,1,historicalCollection)
@@ -43,7 +43,7 @@ def pakovanje(p1):
                     listUpdate.append(cd)
                                             
     if p1[0]=="CODE_SINGLENOE" or p1[0]=="CODE_MULTIPLENODE":
-                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
+                loger.upisiLog(LoggerPoruka)
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(3,2,historicalCollection)
@@ -54,7 +54,7 @@ def pakovanje(p1):
                     listUpdate.append(cd)
               
     if p1[0]=="CODE_CONSUMER" or p1[0]=="CODE_SOURCE":
-                loger.upisiLog("ReplicatorReciver:Formatiranje poruke za slanje Reader komponenti.")
+                loger.upisiLog(LoggerPoruka)
                 rc=RecieverProperty(p1[0],p1[1])
                 historicalCollection.append(rc)
                 cd=CollectionDescription(4,3,historicalCollection)
@@ -66,7 +66,7 @@ def pakovanje(p1):
     
     return True
 
-def Main():
+def main():
     HEADERSIZE = 10
     #TCP Konekcija sa ReplicatorSenderom
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -124,5 +124,5 @@ def Main():
                 full_msg = b''    
 
 if __name__ == '__main__':
-    Main()
+    main()
                 

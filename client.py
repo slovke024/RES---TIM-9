@@ -5,7 +5,21 @@ import os
 codes = ["CODE_ANALOG","CODE_DIGITAL","CODE_CUSTOM","CODE_LIMITSET","CODE_SINGLENOE","CODE_MULTIPLENODE","CODE_CONSUMER","CODE_SOURCE"]
 
 
-def poslednjaVrednost():
+def provera_koda(x):
+    if (x=="CODE_ANALOG" or x=="CODE_DIGITAL"):
+            reader1=Reader("DataSet1")
+            reader1.poslednjaVrednost(x)
+    if (x=="CODE_CUSTOM" or x=="CODE_LIMITSET"):
+            reader2=Reader("DataSet2")
+            reader2.poslednjaVrednost(x)
+    if (x=="CODE_SINGLENOE" or x=="CODE_MULTIPLENODE"):
+            reader3=Reader("DataSet3")
+            reader3.poslednjaVrednost(x)
+    if (x=="CODE_CONSUMER" or x=="CODE_SOURCE"):
+            reader4=Reader("DataSet4")
+            reader4.poslednjaVrednost(x)
+
+def poslednja_vrednost():
         kod=""
         lista=list()
         while kod!="x":
@@ -21,21 +35,12 @@ def poslednjaVrednost():
                 lista.append(kod)
             
         for x in lista:
-            if (x=="CODE_ANALOG" or x=="CODE_DIGITAL"):
-                reader1=Reader("DataSet1")
-                reader1.poslednjaVrednost(x)
-            if (x=="CODE_CUSTOM" or x=="CODE_LIMITSET"):
-                reader2=Reader("DataSet2")
-                reader2.poslednjaVrednost(x)
-            if (x=="CODE_SINGLENOE" or x=="CODE_MULTIPLENODE"):
-                reader3=Reader("DataSet3")
-                reader3.poslednjaVrednost(x)
-            if (x=="CODE_CONSUMER" or x=="CODE_SOURCE"):
-                reader4=Reader("DataSet4")
-                reader4.poslednjaVrednost(x)
+            provera_koda(x)
+
+           
         return True
 
-def vremenskiInterval():
+def vremenski_interval():
         print("Unesite kod")
         vrednost=input()
         while vrednost not in codes:
@@ -71,13 +76,10 @@ def Main():
             broj=input()
 
         if broj=='1':
-            poslednjaVrednost()
+            poslednja_vrednost()
         
         if broj=="2":
-            vremenskiInterval()
-
-        if broj=="3":
-            os.system("start cmd /k python Writer.py")
+            vremenski_interval()
         
         print("Sledeci upis")
 

@@ -2,7 +2,7 @@ import unittest
 import klase
 from unittest.mock import patch
 from ReplicatorReciver import pakovanje
-from client import vremenskiInterval,poslednjaVrednost
+from client import vremenski_interval,poslednja_vrednost
 
 
 class TestReader(unittest.TestCase):
@@ -20,9 +20,9 @@ class TestReader(unittest.TestCase):
             self.assertEqual(mock_init.call_args[0][1], 'CODE_SINGLENOE')
             self.assertEqual(mock_init.call_args[0][2], 46)
 
+    
     def test_collectionDescription(self):
-        with patch('klase.CollectionDescription.__init__') as mock_init:
-
+        with patch('klase.CollectionDescription.__init__') as mock_init2:
             rc1 = klase.RecieverProperty("CODE_ANALOG", 10)
             rc2 = klase.RecieverProperty("CODE_CUSTOM", 29)
             rc3 = klase.RecieverProperty("CODE_CONSUMER", 40)
@@ -31,11 +31,12 @@ class TestReader(unittest.TestCase):
             historical.append(rc2)
             historical.append(rc3)
 
-            cd = mock_init(self, 1, 2, historical)
+            cd = mock_init2(self, 1, 2, historical)
 
-            self.assertEqual(mock_init.call_args[0][1],1)
-            self.assertEqual(mock_init.call_args[0][2],2)
-            self.assertEqual(mock_init.call_args[0][3],historical)
+            self.assertEqual(mock_init2.call_args[0][1],1)
+            self.assertEqual(mock_init2.call_args[0][2],2)
+            self.assertEqual(mock_init2.call_args[0][3],historical)
+            
 
     def test_reader_init(self):
          with patch('klase.Reader.__init__') as mock_init:
@@ -79,6 +80,18 @@ class TestReader(unittest.TestCase):
             assert mock_logger(self, 'poruka')
             self.assertEqual(mock_logger.call_args[0][1],'poruka')
 
+    def test_codeValue(self):
+        with patch('klase.CodeValue.__init__') as mock_init:
+            #rc = klase.RecieverProperty.__init__(self,'CODE_ANALOG', 13)
+            cv = mock_init(self,'CODE_LIMITSET',99)
+            self.assertEqual(mock_init.call_args[0][1], 'CODE_LIMITSET')
+            self.assertEqual(mock_init.call_args[0][2], 99)
+
+
+            cv1 = mock_init(self,'CODE_DIGITAL',6)
+            self.assertEqual(mock_init.call_args[0][1], 'CODE_DIGITAL')
+            self.assertEqual(mock_init.call_args[0][2], 6)
+
     def test_replicatorReciver_pakovanje(self):
         with patch('ReplicatorReciver.pakovanje') as mock_pakovanje:
             mock_pakovanje(('CODE_ANALOG',15))
@@ -97,13 +110,13 @@ class TestReader(unittest.TestCase):
             assert mock_deadband('CODE_ANALOG',15)
 
     def test_client_vremenskiInterval(self):
-        with patch('client.vremenskiInterval') as mock_vremenskiInterval:
+        with patch('client.vremenski_interval') as mock_vremenskiInterval:
             mock_vremenskiInterval()
             mock_vremenskiInterval.return_value=True
             assert mock_vremenskiInterval()
 
     def test_client_poslednjaVrednost(self):
-        with patch('client.poslednjaVrednost') as mock_poslednjaVrednost:
+        with patch('client.poslednja_vrednost') as mock_poslednjaVrednost:
             mock_poslednjaVrednost()
             mock_poslednjaVrednost.return_value=True
             assert mock_poslednjaVrednost()
