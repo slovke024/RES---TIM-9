@@ -25,7 +25,7 @@ loger.upisiLog("Writer:Konekcija uspostavljena sa ReplicatorSender komponentom."
 
 
 while True:
-        time.sleep(1)
+        time.sleep(2)
         p1 = CodeValue(codes[random.randint(0,7)],random.randint(0,100))
         msg1 = [p1.code,p1.value]
         msg = pickle.dumps(msg1)
