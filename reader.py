@@ -116,7 +116,6 @@ def Main():
                         loger.upisiLog("Reader1:Provera Deadbanda.")
                         prosao = deadband(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                         if prosao:
-
                             reader1.upisiUBazu(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                             if x.historical_collection[-counter].code not in listaKodova:
                                 listaKodova.append(x.historical_collection[-counter].code)
@@ -127,7 +126,6 @@ def Main():
                         loger.upisiLog("Reader2:Provera Deadbanda.")
                         prosao = deadband(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                         if prosao:
-
                             reader2.upisiUBazu(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                             if x.historical_collection[-counter].code not in listaKodova:
                                 listaKodova.append(x.historical_collection[-counter].code)
@@ -138,7 +136,6 @@ def Main():
                         loger.upisiLog("Reader3:Provera Deadbanda.")
                         prosao = deadband(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                         if prosao:
-
                             reader3.upisiUBazu(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                             if x.historical_collection[-counter].code not in listaKodova:
                                 listaKodova.append(x.historical_collection[-counter].code)
@@ -149,7 +146,6 @@ def Main():
                         loger.upisiLog("Reader4:Provera Deadbanda.")
                         prosao = deadband(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                         if prosao:
-
                             reader4.upisiUBazu(x.historical_collection[-counter].code,x.historical_collection[-counter].value)
                             if x.historical_collection[-counter].code not in listaKodova:
                                 listaKodova.append(x.historical_collection[-counter].code)
